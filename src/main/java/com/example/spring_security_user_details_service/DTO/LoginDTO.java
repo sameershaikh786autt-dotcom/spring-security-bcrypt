@@ -1,0 +1,19 @@
+package com.example.spring_security_user_details_service.DTO;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+//@Data
+//@Builder
+//@NoArgsConstructor
+//@AllArgsConstructor
+//public class LoginDTO {
+//
+//    @NotBlank(message = "Username cannot be blank")
+//    private String username;
+//
+//    @NotBlank(message = "Password cannot be blank")
+//    private String password;
+//}
