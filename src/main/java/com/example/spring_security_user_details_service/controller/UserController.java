@@ -1,5 +1,6 @@
 package com.example.spring_security_user_details_service.controller;
 
+import com.example.spring_security_user_details_service.DTO.LoginDTO;
 import com.example.spring_security_user_details_service.DTO.RegisterDTO;
 import com.example.spring_security_user_details_service.DTO.ResponseDTO;
 import com.example.spring_security_user_details_service.service.UserService;
@@ -7,10 +8,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
@@ -28,8 +26,11 @@ public class UserController {
 
     // USER LOGIN
     @PostMapping("/login")
-    public String loginUser(String username, String password) {
-        return "success";
+    public ResponseEntity<String> loginUser(@RequestBody LoginDTO request) {
+        System.out.println(request.getUsername());
+        userService.loginUser(request);
+        System.out.println(request.getUsername());
+        return ResponseEntity.ok("Login successfully");
     }
 
 }

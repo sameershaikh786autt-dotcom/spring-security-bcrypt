@@ -1,6 +1,7 @@
 package com.example.spring_security_user_details_service.service;
 
 
+import com.example.spring_security_user_details_service.DTO.LoginDTO;
 import com.example.spring_security_user_details_service.GlobalExceptions.AlreadyExistsException;
 import com.example.spring_security_user_details_service.enums.Roles;
 import com.example.spring_security_user_details_service.models.User;
@@ -10,6 +11,9 @@ import com.example.spring_security_user_details_service.DTO.ResponseDTO;
 import com.example.spring_security_user_details_service.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +24,7 @@ import javax.management.relation.Role;
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final AuthenticationManager authenticationManager;
 
     public ResponseDTO createUser(RegisterDTO register) {
         // USER REGISTER ASSIGN TO DTO TO ENTITY
@@ -71,5 +76,26 @@ public class UserService {
                 .createdAt(user.getCreateDate())
                 .build();
        return response;
+    }
+
+
+    // FOR VALIDATION OF USERNAME AND PASSWORD
+    public void loginUser(LoginDTO request) {
+        // 1. User ke plain username aur password ko token me wrap karte hain
+        UsernamePasswordAuthenticationToken token
+                = new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword());
+
+        // AuthenticationManager background me CustomUserDetailsService aur BCrypt ko trigger karta hai
+        Authentication authentication = authenticationManager.authenticate(token);
+
+
+//        authenticationManager.authenticate(
+//                new UsernamePasswordAuthenticationToken(
+//                        request.getUsername(),
+//                        request.getPassword()
+//                )
+//        );
+
+
     }
 }

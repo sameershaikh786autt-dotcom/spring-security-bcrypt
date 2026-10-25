@@ -60,7 +60,7 @@ public class AppConfig {
                 .authorizeHttpRequests(auth -> auth
                         // Registration URL yahan match hona zaroori hai
                         .requestMatchers("/api/register/**", "/register/**").permitAll()
-                        .requestMatchers("/api/login/**").hasAllRoles("USER",  "ADMIN")
+                        .requestMatchers("/register/**", "/api/login/**", "/login/**").permitAll()
                         // Baaki sab private
                         .anyRequest().authenticated()
                 )
