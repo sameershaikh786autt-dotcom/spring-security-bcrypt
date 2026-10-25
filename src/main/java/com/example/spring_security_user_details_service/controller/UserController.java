@@ -26,4 +26,10 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(registerUser);
     }
 
+    // USER LOGIN
+    @PostMapping("/login")
+    public String loginUser(String username, String password) {
+        return "success";
+    }
+
 }
