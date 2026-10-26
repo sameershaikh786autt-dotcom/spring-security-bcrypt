@@ -27,10 +27,9 @@ public class UserController {
     // USER LOGIN
     @PostMapping("/login")
     public ResponseEntity<String> loginUser(@RequestBody LoginDTO request) {
-        System.out.println(request.getUsername());
-        userService.loginUser(request);
-        System.out.println(request.getUsername());
-        return ResponseEntity.ok("Login successfully");
+        String token= userService.loginUser(request);
+        System.out.println("Generated Token: " +token);
+        return ResponseEntity.ok(token);
     }
 
 }
